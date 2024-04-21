@@ -1,0 +1,36 @@
+/*
+Given an integer array nums, find a subarray that has the largest product, and return the product.
+
+The test cases are generated so that the answer will fit in a 32-bit integer.
+
+This solution has
+** Time complexity: O(N)
+** Space complexity: O(1)
+
+*/
+
+
+
+
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        if(nums.size() == 0){
+            return 0;
+        }
+        int max_result = nums[0];
+        int max_ending_here = nums[0];
+        int min_ending_here = nums[0];
+
+        // Iterate through the array starting from the second element
+        for(int i = 1; i < nums.size(); i++){
+            int curr = nums[i];
+
+            int temp_max = max(curr, max(max_ending_here * curr, min_ending_here * curr));
+            min_ending_here = min(curr, min(max_ending_here * curr, min_ending_here * curr));
+            max_ending_here = temp_max;
+            max_result = max(max_ending_here, max_result);
+        }
+        return max_result;
+    }
+};

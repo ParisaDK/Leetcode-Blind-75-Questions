@@ -16,7 +16,7 @@ public:
 
             int left = 0, right = nums.size() - 1;
 
-            if (nums[right] >= nums[0]) {
+            if (nums[right] >= nums[0]) { // The array is already sorted
                 return nums[0];
             }
 

@@ -1,0 +1,57 @@
+/*
+Given the array nums after the possible rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.
+
+The time complexity: O(log n)
+Space Complexity : O(1)
+*/
+
+
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        if(nums.size() == 0)
+            return -1;
+        
+        int right = nums.size()- 1;
+        int left = 0;
+        int min_index;
+        
+        if(nums[left] <= nums[right]){
+            min_index = 0;
+        }
+        
+        
+        while(left < right){
+            int mid = left + (right - left) / 2;
+            
+            if(nums[mid] > nums[right]){
+                left = mid + 1;
+            }else{
+                right = mid;
+            } 
+        }
+        min_index = left;
+        cout << "min_index: " << min_index << ",  nums[min_index]: " << nums[min_index] << std::endl;
+        
+        if(target >= nums[min_index] && target <= nums[nums.size() - 1]){
+            left = min_index;
+            right = nums.size() - 1;
+        }else{
+            left = 0;
+            right = min_index;
+        }
+ 
+        while(left <= right){
+            int mid = left + (right- left) / 2;
+            if(nums[mid] == target){
+                return mid;
+            }else if(nums[mid] > target){
+                right = mid - 1;  
+            }else{
+                left = mid + 1;
+            }
+        }
+ 
+        return -1;
+    }
+};
